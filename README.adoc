@@ -1,0 +1,29 @@
+The script calculates the CPU, Memory and I/O pressures by
+reading the
+https://www.kernel.org/doc/html/latest/accounting/psi.html[*PSI*]
+(Pressure Stall Information)
+provided by the Linux kernel.
+It should work with Linux kernel 5.2+,
+according to
+https://unixism.net/2019/08/linux-pressure-stall-information-psi-by-example/[PSI by Example].
+
+Example, returning the pressures every 0.5 seconds,
+
+----
+./psi-mon.py 0.5
+----
+
+It works well with
+https://github.com/polybar/polybar[Polybar].
+Just add the following to your Polybar config.
+----
+[module/psi-mon]
+type = custom/script
+tail = true
+exec = python -u ~/.local/share/polybar/psi-mon.py 0.5
+----
+
+It is important to pass `-u` option to python to
+
+> Force the stdout and stderr streams to be unbuffered.
+
